@@ -1,4 +1,5 @@
 # pylint: disable=too-many-lines
+from ..simulation.cold_gas_controller import getControlMoments
 import json
 import math
 import warnings
@@ -1398,7 +1399,9 @@ class Flight:  # pylint: disable=too-many-public-methods
         # Retrieve integration data
         _, _, z, vx, vy, vz, e0, e1, e2, e3, omega1, omega2, omega3 = u
         # Determine lift force and moment
-        R1, R2, M1, M2, M3 = 0, 0, 0, 0, 0
+        
+        R1, R2 = 0, 0
+        M1, M2, M3 = getControlMoments(u)
         # Determine current behavior
         if t < self.rocket.motor.burn_out_time:
             # Motor burning
@@ -1728,7 +1731,8 @@ class Flight:  # pylint: disable=too-many-public-methods
         Kt = K.transpose
 
         # Compute aerodynamic forces and moments
-        R1, R2, R3, M1, M2, M3 = 0, 0, 0, 0, 0, 0
+        R1, R2, R3 = 0, 0, 0
+        M1, M2, M3 = getControlMoments(u) 
 
         ## Drag force
         rho = self.env.density.get_value_opt(z)

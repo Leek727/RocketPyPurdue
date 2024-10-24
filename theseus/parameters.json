@@ -1,0 +1,156 @@
+{
+    "elliptical_fins": {},
+    "environment": {
+        "base_pressure": null,
+        "base_temperature": null,
+        "date": null,
+        "elevation": 0.0,
+        "geodetic_method": "spherical",
+        "latitude": 28.61,
+        "longitude": -80.6,
+        "wind_average": 2.0,
+        "wind_turbulence": 0.1
+    },
+    "flight": {
+        "heading": 90.0,
+        "inclination": 90.0,
+        "rail_length": 1.0
+    },
+    "id": {
+        "comment": "Idk why it keeps saving in this size (doesnt effect too much, just looks bad)",
+        "designer": null,
+        "filepath": "rocket.ork",
+        "rocket_name": "Theseus (4-12-24)"
+    },
+    "motors": {
+        "center_of_dry_mass_position": 0,
+        "coordinate_system_orientation": "nozzle_to_combustion_chamber",
+        "dry_inertia": [
+            0,
+            0,
+            0
+        ],
+        "dry_mass": 0,
+        "grain_density": 971.6200215930797,
+        "grain_initial_height": 0.751,
+        "grain_initial_inner_radius": 0.0245,
+        "grain_number": 1,
+        "grain_outer_radius": 0.049,
+        "grain_separation": 0,
+        "grains_center_of_mass_position": 0,
+        "nozzle_position": -0.3755,
+        "nozzle_radius": 0.036750000000000005,
+        "position": 2.364803294573643,
+        "throat_radius": 0.0245,
+        "thrust_source": "theseus\\thrust_source.csv"
+    },
+    "nosecones": {
+        "base_radius": 0.078359,
+        "kind": "ogive",
+        "length": 0.78359,
+        "name": "Nose cone",
+        "position": 0.0
+    },
+    "parachutes": {
+        "0": {
+            "area": 7.296587699003968,
+            "cd": 2.2,
+            "cds": 16.052492937808733,
+            "deploy_altitude": 304.8,
+            "deploy_delay": 0.0,
+            "deploy_event": "altitude",
+            "name": "Light HP Parachute [Cd 2.2 (10.4 oz) 34.62 in^3]"
+        },
+        "1": {
+            "area": 1.824146924750992,
+            "cd": 0.97,
+            "cds": 1.7694225170084623,
+            "deploy_altitude": null,
+            "deploy_delay": 0.0,
+            "deploy_event": "apogee",
+            "name": "Pro X Drogue Parachute [Cd .97 (8.5 oz) 28.27 in^3]"
+        }
+    },
+    "rail_buttons": {
+        "angular_position": 0.0,
+        "distance": 0.3774440000000001,
+        "lower_position": 2.7270710000000005,
+        "name": "Launch Rail",
+        "upper_position": 2.3496270000000004
+    },
+    "rocket": {
+        "center_of_mass_without_propellant": 1.761,
+        "coordinate_system_orientation": "nose_to_tail",
+        "drag_curve": "theseus\\drag_curve.csv",
+        "inertia": [
+            0.082,
+            0.082,
+            11.075
+        ],
+        "mass": 20.797,
+        "radius": 0.078359
+    },
+    "stored_results": {
+        "burnout_stability_margin": 2.408,
+        "flight_time": 299.697,
+        "ground_hit_velocity": 4.334,
+        "launch_rod_velocity": 20.759,
+        "max_acceleration": 293.005,
+        "max_altitude": 3397.753,
+        "max_mach": 1.123,
+        "max_stability_margin": 2.533,
+        "max_thrust": 7095.311,
+        "max_velocity": 380.953,
+        "min_stability_margin": 0.0,
+        "time_to_apogee": 24.186
+    },
+    "tails": {
+        "0": {
+            "bottom_radius": "auto 0.07619999999999999",
+            "length": 0.0254,
+            "name": "FG-Al Joint",
+            "position": 1.6160750000000004,
+            "top_radius": 0.078359
+        },
+        "1": {
+            "bottom_radius": "auto 0.078359",
+            "length": 0.0254,
+            "name": "FG-Al Joint",
+            "position": 1.6160750000000004,
+            "top_radius": 0.07619999999999999
+        },
+        "2": {
+            "bottom_radius": "auto 0.07619999999999999",
+            "length": 0.0254,
+            "name": "FG-Al Joint",
+            "position": 1.6160750000000004,
+            "top_radius": 0.078359
+        }
+    },
+    "trapezoidal_fins": {
+        "0": {
+            "cant_angle": 0.0,
+            "name": "Fin - L Brackets",
+            "number": 4,
+            "position": 3.1894780000000003,
+            "root_chord": 0.1397,
+            "section": "airfoil",
+            "span": 0.12446,
+            "sweep_angle": null,
+            "sweep_length": 0.038099999999999995,
+            "tip_chord": 0.1397
+        },
+        "1": {
+            "cant_angle": 0.0,
+            "name": "Trapezoidal Fin Set",
+            "number": 4,
+            "position": 3.214878,
+            "root_chord": 0.254,
+            "section": "rounded",
+            "span": 0.0254,
+            "sweep_angle": null,
+            "sweep_length": 0.0,
+            "tip_chord": 0.254
+        }
+    }
+}
