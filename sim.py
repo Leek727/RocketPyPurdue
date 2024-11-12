@@ -12,6 +12,7 @@ from rocketpy import (
 )
 import datetime
 
+
 env = Environment()
 env.set_location(latitude=28.61, longitude=-80.6)
 env.set_elevation(0.0)
@@ -172,8 +173,6 @@ rail_buttons = rocket.set_rail_buttons(
 )
 
 
-
-
 flight = Flight(
     rocket=rocket,
     environment=env,
@@ -184,4 +183,5 @@ flight = Flight(
     max_time=600,
 )
 
-flight.all_info()
+print(f"Apogee x: {flight.apogee_x}\nApogee y: {flight.apogee_y}")
+#print(flight.all_info())
