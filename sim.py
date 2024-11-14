@@ -134,7 +134,7 @@ parachutes[1] = Parachute(
 rocket = Rocket(
     radius=0.078359,
     mass=20.797,
-    inertia=[0.082, 0.082, 11.075],
+    inertia=[11.075,11.075,0.082],
     power_off_drag="theseus/drag_curve.csv",
     power_on_drag="theseus/drag_curve.csv",
     center_of_mass_without_motor=1.761,
@@ -185,3 +185,134 @@ flight = Flight(
 
 print(f"Apogee x: {flight.apogee_x}\nApogee y: {flight.apogee_y}")
 #print(flight.all_info())
+
+#print(rocket.evaluate_dry_inertias())
+#print(flight.w3())
+# 18 in, 7 lbs
+# TODO 3 DOF, axes of rotation, rocket control system demo by end of next semester
+
+# 0.038812405990997285 rad/s^2
+"""
+time_to_apogee_ork = 24.186
+time_to_apogee_rpy = flight.apogee_time
+print(f"Time to apogee (OpenRocket): {time_to_apogee_ork:.3f} s")
+print(f"Time to apogee (RocketPy):   {time_to_apogee_rpy:.3f} s")
+apogee_difference = time_to_apogee_rpy - time_to_apogee_ork
+error = abs((apogee_difference) / time_to_apogee_rpy) * 100
+print(f"Time to apogee difference:   {error:.3f} %")
+print()
+
+flight_time_ork = 299.717
+flight_time_rpy = flight.t_final
+print(f"Flight time (OpenRocket): {flight_time_ork:.3f} s")
+print(f"Flight time (RocketPy):   {flight_time_rpy:.3f} s")
+flight_time_difference = flight_time_rpy - flight_time_ork
+error_flight_time = abs((flight_time_difference) / flight_time_rpy) * 100
+print(f"Flight time difference:   {error_flight_time:.3f} %")
+print()
+
+ground_hit_velocity_ork = -4.364
+ground_hit_velocity_rpy = flight.impact_velocity
+print(f"Ground hit velocity (OpenRocket): {ground_hit_velocity_ork:.3f} m/s")
+print(f"Ground hit velocity (RocketPy):   {ground_hit_velocity_rpy:.3f} m/s")
+ground_hit_velocity_difference = ground_hit_velocity_rpy - ground_hit_velocity_ork
+error_ground_hit_velocity = (
+    abs((ground_hit_velocity_difference) / ground_hit_velocity_rpy) * 100
+)
+print(f"Ground hit velocity difference:   {error_ground_hit_velocity:.3f} %")
+print()
+
+launch_rod_velocity_ork = 20.759
+launch_rod_velocity_rpy = flight.out_of_rail_velocity
+print(f"Launch rod velocity (OpenRocket): {launch_rod_velocity_ork:.3f} m/s")
+print(f"Launch rod velocity (RocketPy):   {launch_rod_velocity_rpy:.3f} m/s")
+launch_rod_velocity_difference = launch_rod_velocity_rpy - launch_rod_velocity_ork
+error_launch_rod_velocity = (
+    abs((launch_rod_velocity_difference) / launch_rod_velocity_rpy) * 100
+)
+print(f"Launch rod velocity difference:   {error_launch_rod_velocity:.3f} %")
+print()
+
+max_acceleration_ork = 293.004
+max_acceleration_rpy = flight.max_acceleration
+print(f"Max acceleration (OpenRocket): {max_acceleration_ork:.3f} m/s²")
+print(f"Max acceleration (RocketPy):   {max_acceleration_rpy:.3f} m/s²")
+max_acceleration_difference = max_acceleration_rpy - max_acceleration_ork
+error_max_acceleration = abs((max_acceleration_difference) / max_acceleration_rpy) * 100
+print(f"Max acceleration difference:   {error_max_acceleration:.3f} %")
+print()
+
+max_altitude_ork = 3397.777
+max_altitude_rpy = flight.apogee - flight.env.elevation
+print(f"Max altitude (OpenRocket): {max_altitude_ork:.3f} m")
+print(f"Max altitude (RocketPy):   {max_altitude_rpy:.3f} m")
+max_altitude_difference = max_altitude_rpy - max_altitude_ork
+error_max_altitude = abs((max_altitude_difference) / max_altitude_rpy) * 100
+print(f"Max altitude difference:   {error_max_altitude:.3f} %")
+print()
+
+max_mach_ork = 1.123
+max_mach_rpy = flight.max_mach_number
+print(f"Max Mach (OpenRocket): {max_mach_ork:.3f}")
+print(f"Max Mach (RocketPy):   {max_mach_rpy:.3f}")
+max_mach_difference = max_mach_rpy - max_mach_ork
+error_max_mach = abs((max_mach_difference) / max_mach_rpy) * 100
+print(f"Max Mach difference:   {error_max_mach:.3f} %")
+print()
+
+max_velocity_ork = 380.956
+max_velocity_rpy = flight.max_speed
+print(f"Max velocity (OpenRocket): {max_velocity_ork:.3f} m/s")
+print(f"Max velocity (RocketPy):   {max_velocity_rpy:.3f} m/s")
+max_velocity_difference = max_velocity_rpy - max_velocity_ork
+error_max_velocity = abs((max_velocity_difference) / max_velocity_rpy) * 100
+print(f"Max velocity difference:   {error_max_velocity:.3f} %")
+print()
+
+max_thrust_ork = 7095.311
+max_thrust_rpy = flight.rocket.motor.thrust.max
+print(f"Max thrust (OpenRocket): {max_thrust_ork:.3f} N")
+print(f"Max thrust (RocketPy):   {max_thrust_rpy:.3f} N")
+max_thrust_difference = max_thrust_rpy - max_thrust_ork
+error_max_thrust = abs((max_thrust_difference) / max_thrust_rpy) * 100
+print(f"Max thrust difference:   {error_max_thrust:.3f} %")
+print()
+
+burnout_stability_margin_ork = 2.403
+burnout_stability_margin_rpy = flight.stability_margin(
+    flight.rocket.motor.burn_out_time
+)
+print(f"Burnout stability margin (OpenRocket): {burnout_stability_margin_ork:.3f}")
+print(f"Burnout stability margin (RocketPy):   {burnout_stability_margin_rpy:.3f}")
+burnout_stability_margin_difference = (
+    burnout_stability_margin_rpy - burnout_stability_margin_ork
+)
+error_burnout_stability_margin = (
+    abs((burnout_stability_margin_difference) / burnout_stability_margin_rpy) * 100
+)
+print(f"Burnout stability margin difference:   {error_burnout_stability_margin:.3f} %")
+print()
+
+max_stability_margin_ork = 2.529
+max_stability_margin_rpy = flight.max_stability_margin
+print(f"Max stability margin (OpenRocket): {max_stability_margin_ork:.3f}")
+print(f"Max stability margin (RocketPy):   {max_stability_margin_rpy:.3f}")
+max_stability_margin_difference = max_stability_margin_rpy - max_stability_margin_ork
+error_max_stability_margin = (
+    abs((max_stability_margin_difference) / max_stability_margin_rpy) * 100
+)
+print(f"Max stability margin difference:   {error_max_stability_margin:.3f} %")
+print()
+
+min_stability_margin_ork = 0.0
+min_stability_margin_rpy = flight.min_stability_margin
+print(f"Min stability margin (OpenRocket): {min_stability_margin_ork:.3f}")
+print(f"Min stability margin (RocketPy):   {min_stability_margin_rpy:.3f}")
+min_stability_margin_difference = min_stability_margin_rpy - min_stability_margin_ork
+error_min_stability_margin = (
+    abs((min_stability_margin_difference) / min_stability_margin_rpy) * 100
+)
+print(f"Min stability margin difference:   {error_min_stability_margin:.3f} %")
+print()
+
+"""

@@ -1873,6 +1873,8 @@ class Flight:  # pylint: disable=too-many-public-methods
                 [t, *v_dot, *w_dot, R1, R2, R3, M1, M2, M3]
             )
 
+        #print(u_dot[-1])
+
         return u_dot
 
     def u_dot_parachute(self, t, u, post_processing=False):

@@ -17,7 +17,18 @@ def getControlMoments(u):
     #return [0,0,300]
 
     #print(20*(2*np.pi*rps-omega3))
-    return [0,0,20*(2*np.pi*rps-omega3)]
+    max_force = 2 #N
+    out_diameter = .152 # m
+    radius = out_diameter / 2 # m
+    max_moment = radius * max_force
+    
+    control_moment = 20*(2*np.pi*rps-omega3)
+    if (abs(control_moment) > max_moment):
+        control_moment = np.sign(control_moment) * max_moment
+    
+    
+    return [0,0,0]
+
 
     #return [0,0,0]
 
