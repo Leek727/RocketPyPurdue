@@ -27,7 +27,7 @@ def getControlMoments(u):
         control_moment = np.sign(control_moment) * max_moment
     
     
-    return [0,0,0]
+    return [1,0,0]
 
 
     #return [0,0,0]

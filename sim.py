@@ -20,7 +20,7 @@ env.set_elevation(0.0)
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 env.set_date((tomorrow.year, tomorrow.month, tomorrow.day, 12))
 # env.set_atmospheric_model(type='Forecast', file='GFS')
-env.add_wind_gust(0, 1)
+#env.add_wind_gust(0, 1)
 
 #env.all_info()
 
@@ -44,7 +44,7 @@ motor = SolidMotor(
     coordinate_system_orientation="nozzle_to_combustion_chamber",
 )
 
-#motor.all_info()
+#print(motor.all_info())
 
 
 
@@ -112,6 +112,10 @@ tails[2] = Tail(
     name='FG-Al Joint',
 )
 
+# remove fins
+#trapezoidal_fins = {}
+#tails = []
+
 
 
 
@@ -141,7 +145,6 @@ rocket = Rocket(
     coordinate_system_orientation="nose_to_tail",
 )
 
-
 rocket.add_surfaces(
     surfaces=[
         nosecone,
@@ -160,11 +163,10 @@ rocket.add_surfaces(
         1.6160750000000004,
     ],
 )
-
 rocket.add_motor(motor, position=2.364803294573643)
 
 
-rocket.parachutes = list(parachutes.values())
+rocket.parachutes = []#list(parachutes.values())
 
 rail_buttons = rocket.set_rail_buttons(
     upper_button_position=2.350,
@@ -184,10 +186,10 @@ flight = Flight(
 )
 
 print(f"Apogee x: {flight.apogee_x}\nApogee y: {flight.apogee_y}")
-#print(flight.all_info())
+print(flight.all_info())
 
 #print(rocket.evaluate_dry_inertias())
-#print(flight.w3())
+print(flight.w3())
 # 18 in, 7 lbs
 # TODO 3 DOF, axes of rotation, rocket control system demo by end of next semester
 
