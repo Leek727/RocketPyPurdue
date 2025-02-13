@@ -30,9 +30,9 @@ B = np.array(
 
 # initial state
 x = np.array([
-    100, # body theta
+    0, # body theta
     0, # flywheel theta
-    0, # body theta dot
+    4, # body theta dot
     0 # flywheel theta dot
 ], dtype=np.float64)
 
@@ -56,8 +56,6 @@ for i in range(10000):
     x += x_dot * dt
     v1.append((x[0]))# % (2 * np.pi)) - np.pi) # body theta
 
-    
-    #print(f"Body theta: {x[0]}")
     e = (setpoint - x[0]) % (2 * np.pi)
     if e > np.pi:
         e -= 2*np.pi
@@ -66,12 +64,14 @@ for i in range(10000):
 
     uo = kP * e + kD * x[2]
     u = np.clip(uo, -10, 10)
-    #rint(f"Control: {u}, Control raw: {uo}")
-    # plot flywheel speed
-    #v2.append(x[3])
-    #print(f"Control: {u}")
+    #`print(f"Flywheel speed: {x[3]}")
+    v2.append(x[3])
+
+print(f"Max flywheel speed: {max(v2) * 9.549297}")
+print(f"Final flywheel speed: {x[3] * 9.549297}")
+print(f"Final body speed: {x[2] * 9.549297}")
 
 
 plt.plot(v1)
-#plt.plot(v2)
+plt.plot(v2)
 plt.show()
