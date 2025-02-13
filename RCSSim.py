@@ -8,6 +8,9 @@ I1 = 0.082
 M = 2 # kg
 I2 = M * (0.078359 ** 2)
 
+print(f"I1: {I1}")
+print(f"I2: {I2}")
+
 # body A matrix
 A = np.array(
     [
@@ -30,48 +33,77 @@ B = np.array(
 
 # initial state
 x = np.array([
-    0, # body theta
+    np.pi/2, # body theta
     0, # flywheel theta
-    4, # body theta dot
+    0, # body theta dot
     0 # flywheel theta dot
 ], dtype=np.float64)
 
 # torque input
 u = 0
 
-
-v1 = []
-v2 = []
-
 # PID for kP,  kI, kD
-kP = .5
+kP = 10
 kI = 0
-kD = 1.5
+kD = 1.6248
 
-setpoint = np.pi
+setpoint = 2
+
+body_pos = []
+flywheel_pos = []
+body_vel = []
+flywheel_vel = []
+u_int_plot = []
+
+u_int = 0
 
 dt = 0.001
 for i in range(10000):
+    # append to array
+    body_pos.append(x[0])
+    flywheel_pos.append(x[1])
+    body_vel.append(x[2] * 9.549297)
+    flywheel_vel.append(x[3] * 9.549297)
+    u_int_plot.append(u_int)
+
+    # update state
     x_dot = A @ x + B * u
     x += x_dot * dt
-    v1.append((x[0]))# % (2 * np.pi)) - np.pi) # body theta
 
-    e = (setpoint - x[0]) % (2 * np.pi)
+    #e = x[0]
+    
+    e = (x[0] - setpoint) % (2 * np.pi)
     if e > np.pi:
         e -= 2*np.pi
     elif e < -np.pi:
         e += 2*np.pi
 
-    uo = kP * e + kD * x[2]
-    u = np.clip(uo, -10, 10)
-    #`print(f"Flywheel speed: {x[3]}")
-    v2.append(x[3])
+    u_int += e * dt
+    u_int = np.clip(u_int, -10, 10)
 
-print(f"Max flywheel speed: {max(v2) * 9.549297}")
+    uo = kP * e + kI * u_int + kD * x[2]
+    u = np.clip(uo, -1, 1)
+
+print(f"Max flywheel speed: {max(flywheel_vel) * 9.549297}")
 print(f"Final flywheel speed: {x[3] * 9.549297}")
 print(f"Final body speed: {x[2] * 9.549297}")
 
+plt.plot(body_pos)
+plt.title("Body Position")
+plt.show()
 
-plt.plot(v1)
-plt.plot(v2)
+plt.plot(flywheel_pos)
+plt.title("Flywheel Position")
+plt.show()
+
+plt.plot(body_vel)
+plt.title("Body Velocity")
+plt.show()
+
+plt.plot(flywheel_vel)
+plt.title("Flywheel Velocity")
+plt.show()
+
+plt.plot(u_int_plot)
+plt.title("Integral of Error")
 plt.show()
