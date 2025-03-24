@@ -8,9 +8,6 @@ I1 = 0.082
 M = 2 # kg
 I2 = M * (0.078359 ** 2)
 
-print(f"I1: {I1}")
-print(f"I2: {I2}")
-
 # body A matrix
 A = np.array(
     [
@@ -33,9 +30,9 @@ B = np.array(
 
 # initial state
 x = np.array([
-    np.pi/2, # body theta
+    0, # body theta
     0, # flywheel theta
-    0, # body theta dot
+    2*np.pi*3.5, # body theta dot
     0 # flywheel theta dot
 ], dtype=np.float64)
 
@@ -79,7 +76,7 @@ for i in range(10000):
         e += 2*np.pi
 
     u_int += e * dt
-    u_int = np.clip(u_int, -10, 10)
+    u_int = np.clip(u_int, -3, 3)
 
     uo = kP * e + kI * u_int + kD * x[2]
     u = np.clip(uo, -1, 1)
